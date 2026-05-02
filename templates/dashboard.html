@@ -1,0 +1,94 @@
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Welcome, {{ current_user.name }} 👋
+</h2>
+
+<!-- Debug Role Check -->
+<h4 class="mb-3">
+    Your Role: {{ current_user.role }}
+</h4>
+
+<!-- Admin Buttons -->
+{% if current_user.role.lower() == 'admin' %}
+<div class="mb-4">
+    <a href="{{ url_for('create_project') }}" class="btn btn-success">
+        + Create Project
+    </a>
+
+    <a href="{{ url_for('create_task') }}" class="btn btn-primary">
+        + Create Task
+    </a>
+
+    <a href="{{ url_for('view_tasks') }}" class="btn btn-dark">
+        View All Tasks
+    </a>
+</div>
+{% endif %}
+
+<div class="row mb-4">
+
+    <div class="col-md-3">
+        <div class="dashboard-box bg-total">
+            <h4>{{ total_tasks }}</h4>
+            <p>Total Tasks</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-box bg-completed">
+            <h4>{{ completed_tasks }}</h4>
+            <p>Completed</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-box bg-pending">
+            <h4>{{ pending_tasks }}</h4>
+            <p>Pending</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-box bg-overdue">
+            <h4>{{ overdue_tasks }}</h4>
+            <p>Overdue</p>
+        </div>
+    </div>
+
+</div>
+
+<div class="card p-4">
+    <h4>Your Tasks</h4>
+
+    {% if tasks %}
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Due Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.due_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+        <p>No tasks available.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+```

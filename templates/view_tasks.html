@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card p-4">
+    <h2 class="mb-4">All Tasks</h2>
+
+    {% if tasks %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Task Title</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Assigned To</th>
+                    <th>Project ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.status }}</td>
+                    <td>{{ task.due_date }}</td>
+                    <td>{{ task.assigned_to }}</td>
+                    <td>{{ task.project_id }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No tasks found.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

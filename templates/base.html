@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Task Manager</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+
+        .navbar {
+            background: #2c3e50;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .btn-primary {
+            background: #3498db;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .dashboard-box {
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .bg-total { background: #3498db; }
+        .bg-completed { background: #2ecc71; }
+        .bg-pending { background: #f39c12; }
+        .bg-overdue { background: #e74c3c; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">🚀 Team Task Manager</a>
+
+        {% if current_user.is_authenticated %}
+        <div>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-light btn-sm">Dashboard</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger btn-sm">Logout</a>
+        </div>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="container mt-4">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+</div>
+
+</body>
+</html>
